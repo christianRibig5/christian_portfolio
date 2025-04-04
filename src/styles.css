@@ -1,0 +1,134 @@
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  color: #2B3A4A;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h5,
+h6 {
+  line-height: 1.5;
+  line-height: 600;
+}
+
+.collapse a {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: #F2F4F8;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.collapse a:hover {
+  color: #82B0E5;
+  text-decoration: underline;
+}
+
+p {
+  color: #F2F4F8;
+}
+
+.colored-section {
+  background-color: #2B3A4A;
+  color: #F2F4F8;
+}
+
+.white-section,
+.white-section p {
+  background-color: #F2F4F8;
+  color: #2B3A4A;
+}
+
+.container-fluid {
+  padding: 7% 15%;
+}
+
+/* navigation bar*/
+
+.navbar {
+  padding: 0 0 2rem;
+  margin-bottom: 5rem;
+}
+
+.navbar-brand {
+  font-family: "Ubuntu";
+  font-size: 2.5rem;
+  font-weight: bold
+}
+
+.navbar-brand a {
+  color: #F2F4F8;
+}
+
+.nav-item {
+  padding: 0 18px;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  font-family: 'Inter';
+}
+
+
+
+/* title section*/
+#title .container-fluid {
+  padding: 3% 15% 7% !important;
+}
+
+.big-heading {
+  font-size: 3rem;
+}
+
+
+.title-image {
+  width: 25%;
+  height: auto;
+  border-top-right-radius: 100px;
+  background-color: transparent;
+  display: block;
+  -webkit-transform: rotate(25deg);
+  -moz-transform: rotate(25deg);
+  -ms-transform: rotate(25deg);
+  -o-transform: rotate(25deg);
+  transform: rotate(25deg);
+  position: absolute;
+  right: 20%;
+
+}
+
+.download-button {
+  margin: 5% 3% 8% 0;
+}
+
+.social-icon {
+  margin: 0 1%;
+}
+
+#about {
+  position: relative;
+}
+
+/* Media Breaking Point*/
+
+@media(max-width:1028px) {
+  #title {
+    position: static;
+  }
+
+  .title-image {
+    width: 30%;
+    display: block;
+    -webkit-transform: rotate(0);
+    -moz-transform: rotate(0);
+    -ms-transform: rotate(0);
+    -o-transform: rotate(0);
+    transform: rotate(0);
+  }
+}
