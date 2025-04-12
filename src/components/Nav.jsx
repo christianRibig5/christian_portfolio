@@ -3,7 +3,7 @@ import React from "react";
 const Nav = () => {
     return (
         /* Nav Bar */
-        <nav className="navbar navbar-expand-lg navbar-dark myNav" >
+        <nav className="navbar navbar-expand-lg navbar-dark" >
             <a className="navbar-brand" href="#">Portfolio</a>
             <button
                 className="navbar-toggler"
@@ -28,6 +28,10 @@ const Nav = () => {
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li className="nav-item divider">|</li>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#blog">Blog</a>
                     </li>
                 </ul>
             </div>

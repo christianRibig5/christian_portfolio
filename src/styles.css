@@ -40,8 +40,9 @@ p {
 }
 
 .white-section,
-.white-section p {
-  background-color: #F2F4F8;
+.white-section p,
+.card-body {
+  background-color: #D3D9DE;
   color: #2B3A4A;
 }
 
@@ -53,7 +54,7 @@ p {
 
 .navbar {
   padding: 0 0 2rem;
-  margin-bottom: 5rem;
+  margin-bottom: 8rem;
 }
 
 .navbar-brand {
@@ -75,11 +76,14 @@ p {
   font-family: 'Inter';
 }
 
-
+.divider {
+  padding-top: 5px;
+  user-select: none;
+}
 
 /* title section*/
 #title .container-fluid {
-  padding: 3% 15% 7% !important;
+  padding: 7% 15% 7%;
 }
 
 .big-heading {
@@ -100,7 +104,6 @@ p {
   transform: rotate(25deg);
   position: absolute;
   right: 20%;
-
 }
 
 .download-button {
@@ -111,8 +114,37 @@ p {
   margin: 0 1%;
 }
 
+.gt-button {
+  font-size: 0.8rem !important;
+  margin: 5% 3% 0 0;
+}
+
 #about {
   position: relative;
+  padding: 1% 15%;
+
+}
+
+#testimonial {
+  text-align: center;
+  background-color: #2e4b68;
+  padding: 3% 15%;
+  position: relative;
+
+}
+
+#projects {
+  padding: 3% 15%;
+}
+
+.testimonial-image {
+  width: 10%;
+  border-radius: 100%;
+  margin: 20px;
+}
+
+.testimonial-text {
+  font-size: 1rem;
 }
 
 /* Media Breaking Point*/
@@ -123,7 +155,8 @@ p {
   }
 
   .title-image {
-    width: 30%;
+    position: static;
+    width: 100%;
     display: block;
     -webkit-transform: rotate(0);
     -moz-transform: rotate(0);
@@ -131,4 +164,26 @@ p {
     -o-transform: rotate(0);
     transform: rotate(0);
   }
+}
+
+/* Recommendation*/
+.recommendation-wrapper {
+  max-width: 850px;
+  margin: 0 auto;
+  padding: 1rem;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.6s ease, opacity 0.6s ease;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.recommendation-wrapper.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.recommendation-wrapper.hide {
+  display: none;
 }
