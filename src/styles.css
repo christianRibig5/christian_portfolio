@@ -175,6 +175,10 @@ p {
   display: none;
 }
 
+.recomder-detail {
+  font-size: 0.6rem;
+}
+
 .hero-wave {
   display: block;
   width: 25%;

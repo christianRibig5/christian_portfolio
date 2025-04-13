@@ -8,7 +8,7 @@ const CaroselContent = (props) => {
                 {props.message}
             </h2>
             <img src={props.photo} className="testimonial-image" alt="profile-image" />
-            <em><span>{props.name},</span> {props.title}<a className="btn btn-outline" href="https://www.linkedin.com/in/christianonyeukwu/" target="_blank"><FaLinkedin role="button" /></a></em>
+            <em className="recomder-detail"><span>{props.name},</span> {props.title}<a className="btn btn-outline" href="https://www.linkedin.com/in/christianonyeukwu/" target="_blank"><FaLinkedin role="button" /></a></em>
         </div>
 
     );
