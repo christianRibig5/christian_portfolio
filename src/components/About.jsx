@@ -6,7 +6,7 @@ const About = () => {
             <div className='container-fluid'>
 
                 <h2 className="text-center">About Me</h2>
-                <p>
+                <p className="text-justify">
                     I'm a dedicated backend engineer with extensive expertise in Java and modern software development practices.
                     While my primary focus is crafting robust, efficient, and scalable backend solutions, I also actively support
                     frontend development, leveraging technologies like React and JavaScript to create intuitive user experiences.
@@ -14,7 +14,7 @@ const About = () => {
                     where I conducted thesis research using a mixed model of algebraic and logical software validation for
                     real-time systems.
                 </p>
-                <p>
+                <p className="text-justify">
                     My professional journey includes valuable experience as a professional software
                     engineer at ECR and a lecturer in the Department of Computer Science, where I simplified intricate technical
                     concepts, empowering students and nurturing their passion for technology. Beyond my coding responsibilities
