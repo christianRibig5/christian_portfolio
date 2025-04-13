@@ -95,6 +95,7 @@ p {
 .title-image {
   width: 25%;
   height: auto;
+  border-top-left-radius: 20px;
   border-top-right-radius: 100px;
   border-bottom-left-radius: 100px;
   background-color: transparent;
@@ -183,10 +184,8 @@ p {
 .hero-wave {
   display: block;
   width: 25%;
-  /* or your preferred size */
   height: auto;
   transform: rotate(25deg);
-  /* fixed slant */
   animation: sideWave 5s ease-in-out infinite;
   transform-origin: center;
   will-change: transform;
@@ -212,6 +211,7 @@ p {
     transform: rotate(25deg) translateX(-5px);
   }
 }
+
 
 /* Media Breaking Point*/
 
@@ -243,6 +243,13 @@ p {
     animation: none;
     margin: 20px auto;
     display: block;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-image {
+    animation: none !important;
   }
 }
 
