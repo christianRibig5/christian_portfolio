@@ -245,6 +245,11 @@ p {
   }
 }
 
+.job-img {
+  border-radius: 5%;
+  height: 150;
+}
+
 @media (min-width: 1200px) {
 
   /* title section*/

@@ -23,9 +23,9 @@ const Projects = () => {
                             <div className="card h-100 shadow-sm">
                                 <img
                                     src={project.image}
-                                    className="card-img-top"
+                                    className="card-img-top img-responsive"
                                     alt={project.title}
-                                    style={{ height: "225px", objectFit: "cover" }}
+                                    style={{ height: "225px" }}
                                 />
                                 <div className="card-body d-flex flex-column">
                                     <h5 className="card-title">{project.title}</h5>
