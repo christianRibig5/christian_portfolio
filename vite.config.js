@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/', // required for Amplify
+  base: '/', // ✅ do NOT add a subdirectory or ./ — just "/"
   build: {
-    outDir: 'dist', // should match amplify.yml
+    outDir: 'dist',
   },
 });
