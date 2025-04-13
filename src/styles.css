@@ -84,7 +84,7 @@ p {
 
 /* title section*/
 #title .container-fluid {
-  padding: 7% 15% 7%;
+  padding: 5% 15% 10%;
 }
 
 .big-heading {
@@ -96,6 +96,7 @@ p {
   width: 25%;
   height: auto;
   border-top-right-radius: 100px;
+  border-bottom-left-radius: 100px;
   background-color: transparent;
   display: block;
   -webkit-transform: rotate(25deg);
@@ -172,13 +173,7 @@ p {
   }
 }
 
-@media (min-width: 1440px) {
-  .title-image {
-    right: 25%;
-    width: 25%;
-    /* Optional fine-tuning */
-  }
-}
+
 
 /* Recommendation*/
 .recommendation-wrapper {
