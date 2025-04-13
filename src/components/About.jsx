@@ -22,7 +22,6 @@ const About = () => {
                     and sharing insights into current and impactful IT innovations through storytelling. My goal remains steadfast:
                     bridging technology and creativity to build seamless, dynamic digital experiences.
                 </p>
-
             </div>
         </section >
     );
