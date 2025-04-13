@@ -172,6 +172,15 @@ p {
   }
 }
 
+@media (min-width: 1440px) {
+  .title-image {
+    right: 25%;
+    width: 20%;
+    top: 20px;
+    /* Optional fine-tuning */
+  }
+}
+
 /* Recommendation*/
 .recommendation-wrapper {
   max-width: 850px;
