@@ -12,6 +12,9 @@ import '@fontsource/inter/300.css'; // Light
 import '@fontsource/inter/700.css'; // Bold
 import "@fontsource/ubuntu"; // Default weight 400
 import "@fontsource/ubuntu/700.css"; // Bold weight
+import '@fontsource/sora/400.css';
+import '@fontsource/sora/600.css';
+import '@fontsource/sora/700.css';
 import "./styles.css";
 
 
