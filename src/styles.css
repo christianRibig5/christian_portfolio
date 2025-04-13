@@ -247,4 +247,8 @@ p {
   #title .container-fluid {
     padding: 5% 15% 15%;
   }
+
+  .title-image {
+    width: 23%;
+  }
 }
