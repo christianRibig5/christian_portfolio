@@ -173,6 +173,14 @@ p {
   }
 }
 
+@media (min-width: 1400px) {
+
+  /* title section*/
+  #title .container-fluid {
+    padding: 5% 15% 12%;
+  }
+}
+
 
 
 /* Recommendation*/
