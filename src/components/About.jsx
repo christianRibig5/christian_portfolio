@@ -9,7 +9,7 @@ const About = () => {
                 <p className="text-justify">
                     I'm a backend engineer specializing in Java and modern software development.
                     While I focus on building scalable backend systems, I also support frontend
-                    projects using React and JavaScript. I hold a Master’s in Computer Science
+                    projects using Java and JavaScript frameworks. I hold a Master’s in Computer Science
                     (thesis Stream) from a Canadian university, where I explored algebraic and
                     logical validation models for real-time systems.
                 </p>
