@@ -77,6 +77,10 @@ p {
   color: #F2F4F8;
 }
 
+.navbar-brand img {
+  width: 60px;
+}
+
 .nav-item {
   padding: 0 18px;
 }

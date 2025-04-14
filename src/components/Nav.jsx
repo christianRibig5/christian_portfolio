@@ -4,7 +4,7 @@ const Nav = () => {
     return (
         /* Nav Bar */
         <nav className="navbar navbar-expand-lg navbar-dark" >
-            <a className="navbar-brand" href="#">Portfolio</a>
+            <a className="navbar-brand" href="#"><img src="/images/developer-w.svg"></img></a>
             <button
                 className="navbar-toggler"
                 type="button"
