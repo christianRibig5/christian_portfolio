@@ -7,10 +7,10 @@ const About = () => {
 
                 <h2 className="text-center">About Me</h2>
                 <p className="text-justify">
-                    I'm a backend engineer specializing in Java and modern software development.
-                    While I focus on building scalable backend systems, I also support frontend
-                    projects using Java and JavaScript frameworks. I hold a Master’s in Computer Science
-                    (thesis Stream) from a Canadian university, where I explored algebraic and
+                    I'm a backend engineer specializing in Java, modern software development, and devops
+                    practices with docker and related infrastructures.While I focus on building scalable backend
+                    systems, I also support frontend projects using Java and JavaScript frameworks. I hold a Master’s
+                    in Computer Science (thesis Stream) from a Canadian university, where I explored algebraic and
                     logical validation models for real-time systems.
                 </p>
                 <p className="text-justify">
