@@ -5,6 +5,7 @@ import Recommendation from "./components/Recommendation";
 import Projects from "./components/Projects";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import '@fontsource/inter'; // Defaults to weight 400
@@ -26,7 +27,7 @@ function App() {
       <Recommendation />
       <Projects />
       <Skills />
-      <Contact />
+      <Footer />
     </div>
   );
 }

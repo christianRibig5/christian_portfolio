@@ -159,6 +159,24 @@ p {
   margin: 20px;
 }
 
+#skills {
+  background-color: #2e4b68;
+  padding: 3% 15%;
+}
+
+.progress {
+  height: 20px;
+  background-color: #D3D9DE;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  background-color: #2e4b68;
+  transition: width 1.5s ease-in-out;
+  color: #D3D9DE;
+}
+
 .testimonial-text {
   font-size: 1rem;
   text-align: justify;
@@ -166,6 +184,10 @@ p {
 
 /* Animation */
 
+footer a:hover {
+  color: #ff4c68;
+  text-decoration: underline;
+}
 
 
 /* Recommendation*/
