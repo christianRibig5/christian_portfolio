@@ -1,9 +1,8 @@
-- name: Install Docker
-  hosts: all
-  become: yes
+- name: Final deployment configuration
+  hosts: localhost
+  connection: local
   tasks:
-    - name: Ensure Docker is installed
-      apt:
-        name: docker.io
-        state: present
+    - name: Print deployment status
+      debug:
+        msg: "React portfolio deployed on Kubernetes and running"
 

@@ -1,33 +1,31 @@
 pipeline {
-  agent any
+    agent any
 
-  environment {
-    APP_NAME = 'christian_portfolio'
-  }
-
-  stages {
-    stage('Build Docker Image') {
-      steps {
-        echo "🔧 Building Docker image..."
-        sh './buildmyportfolio.sh'
-      }
+    environment {
+        DOTENV = readFile('.env').split('\n')
     }
 
-    stage('Deploy to Kubernetes') {
-      steps {
-        echo "🚀 Deploying to Kubernetes..."
-        sh 'kubectl apply -f k8s/deployment.yaml'
-      }
-    }
-  }
+    stages {
+        stage('Build') {
+            steps {
+                script {
+                    sh 'chmod +x scripts/buildmyportfolio.sh'
+                    sh './scripts/buildmyportfolio.sh'
+                }
+            }
+        }
 
-  post {
-    success {
-      echo "✅ Deployment successful!"
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh 'kubectl apply -f k8s/deployment.yml'
+            }
+        }
+
+        stage('Ansible Post Deploy Config') {
+            steps {
+                sh 'ansible-playbook ansible/deploy.yml'
+            }
+        }
     }
-    failure {
-      echo "❌ Build or deployment failed. Check logs above."
-    }
-  }
 }
 
