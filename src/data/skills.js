@@ -13,10 +13,6 @@ const skills = [
     { name: 'HTML5', level: 90 },
     { name: 'Python', level: 50 },
     { name: 'C/C++', level: 40 },
-    { name: 'Docker', level: 75 },
-    { name: 'Kubernetes', level: 65 },
-    { name: 'Jenkins', level: 70 },
-    { name: 'Ansible', level: 60 },
 ];
 
 export default skills;
