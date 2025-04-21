@@ -1,19 +1,17 @@
 #!/bin/bash
-export PATH=$PATH:/usr/local/bin
+set -e  # Exit on error
+
+# Extend PATH to include npm/node
+export PATH=$PATH:/usr/local/bin:/usr/bin
 
 echo "🛠 Building React app..."
 
+# Install dependencies and build
 npm install
 npm run build
-
-set -e  # Exit on error
 
 # Load .env variables
 export $(grep -v '^#' .env | xargs)
-
-echo "🛠 Building React app..."
-npm install
-npm run build
 
 echo "🐳 Removing old Docker container..."
 docker rm -f $DOCKER_CONTAINER_NAME 2>/dev/null || true
@@ -30,4 +28,4 @@ minikube image load $DOCKER_IMAGE_NAME:latest
 echo "🚀 Starting new container locally..."
 docker run -d -p $REACT_APP_PORT:80 --name $DOCKER_CONTAINER_NAME $DOCKER_IMAGE_NAME
 
-echo "✅ Done! Your portfolio is running at: http://localhost:$PORT"
+echo "✅ Done! Your portfolio is running at: http://localhost:$REACT_APP_PORT"
