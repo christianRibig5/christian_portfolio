@@ -1,5 +1,9 @@
 #!/bin/bash
-export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/bin:/usr/local/bin
+
+# explicitly call npm using full path
+/usr/bin/npm install
+/usr/bin/npm run build
 
 set -e  # Exit on error
 
