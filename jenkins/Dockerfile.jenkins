@@ -3,15 +3,15 @@ FROM jenkins/jenkins:lts
 USER root
 
 RUN apt-get update && apt-get install -y \
-    curl \
-    gnupg2 \
-    software-properties-common \
-    apt-transport-https \
-    ca-certificates \
-    sudo
+    curl gnupg2 software-properties-common apt-transport-https ca-certificates sudo
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs && \
-    node -v && npm -v
+    ln -s /usr/bin/node /usr/local/bin/node && \
+    ln -s /usr/bin/npm /usr/local/bin/npm && \
+    npm -v && node -v
+
+# Explicitly ensure jenkins user gets Node.js/npm in its environment
+RUN echo 'export PATH=$PATH:/usr/local/bin:/usr/bin' >> /etc/profile
 
 USER jenkins
