@@ -10,7 +10,10 @@ pipeline {
             steps {
                 script {
                     sh 'chmod +x scripts/buildmyportfolio.sh'
-                    sh 'bash ./scripts/buildmyportfolio.sh'  // <-- force bash
+                    sh '''
+                        export PATH=$PATH:/usr/local/bin
+                        bash ./scripts/buildmyportfolio.sh
+                    '''
                 }
             }
         }

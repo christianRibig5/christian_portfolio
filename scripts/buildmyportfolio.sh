@@ -1,4 +1,6 @@
 #!/bin/bash
+export PATH=$PATH:/usr/local/bin
+
 set -e  # Exit on error
 
 # Load .env variables
