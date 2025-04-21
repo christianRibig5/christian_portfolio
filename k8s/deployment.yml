@@ -15,5 +15,6 @@ spec:
       containers:
       - name: portfolio-container
         image: docker.io/library/christian_portfolio_img:latest
+        imagePullPolicy: Never
         ports:
         - containerPort: 80
