@@ -2,16 +2,19 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Install curl and other dependencies
-RUN apt-get update && \
-    apt-get install -y curl gnupg2 software-properties-common apt-transport-https ca-certificates
+# Install basic dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg2 \
+    software-properties-common \
+    ca-certificates \
+    sudo
 
-# Install Node.js 18
+# Install Node.js 18.x and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs
-
-# Optional: confirm install
-RUN node -v && npm -v
+    apt-get install -y nodejs && \
+    node -v && npm -v
 
 USER jenkins
+
 
