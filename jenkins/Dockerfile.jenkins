@@ -2,17 +2,13 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-ARG DOCKER_GID=998
+ARG DOCKER_GID=20
+RUN groupadd -g ${DOCKER_GID} docker || true && \
+    usermod -aG docker jenkins
 
-# Install Node.js and Docker
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get update && \
-    apt-get install -y nodejs docker.io && \
-    npm -v && node -v && docker --version
-
-# Only add group if it doesn't already exist
-RUN getent group docker || groupadd -g ${DOCKER_GID} docker && \
-    usermod -aG docker jenkins
+    apt-get install -y nodejs docker.io
 
 USER jenkins
 
