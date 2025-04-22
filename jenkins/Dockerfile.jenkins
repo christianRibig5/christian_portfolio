@@ -3,7 +3,13 @@ FROM jenkins/jenkins:lts
 USER root
 
 # Create docker group with GID 20 (to match macOS docker.sock), and add jenkins to it
-RUN groupadd -g 20 docker || true && \
+RUN if ! getent group docker; then \
+    if getent group 20; then \
+    groupmod -n docker $(getent group 20 | cut -d: -f1); \
+    else \
+    groupadd -g 20 docker; \
+    fi; \
+    fi && \
     usermod -aG docker jenkins
 
 # Install Node.js and Docker
