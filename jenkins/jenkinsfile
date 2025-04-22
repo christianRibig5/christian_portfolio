@@ -1,39 +1,28 @@
 pipeline {
     agent any
 
-    environment {
-        // Optional defaults or fallback values if needed
-        // EXAMPLE_API_KEY = credentials('my-api-key-id')  // From Jenkins credentials store
-    }
-
     stages {
-        stage('Cleanup Workspace') {
-            steps {
-                deleteDir()
-            }
-        }
-
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
-
-        stage('Load Env') {
+        stage('Debug Workspace') {
             steps {
                 script {
+                    echo "🔍 Listing workspace files..."
+                    sh 'ls -la'
+                    sh 'git status || echo "⚠️ Not a Git repo"'
+                    sh 'cat jenkinsfile || echo "⚠️ jenkinsfile not found"'
+                }
+            }
+        }
+
+        stage('Load .env Variables') {
+            steps {
+                script {
+                    echo "🔑 Loading environment variables from .env"
                     def envFile = readFile('.env')
                     def lines = envFile.split('\n')
-                    lines.each { line ->
-                        if (line.trim() && !line.trim().startsWith('#')) {
-                            def parts = line.split('=')
-                            if (parts.length == 2) {
-                                def key = parts[0].trim()
-                                def value = parts[1].trim()
-                                env."${key}" = value
-                            } else {
-                                echo "⚠️ Invalid line in .env file: ${line}"
-                            }
+                    for (line in lines) {
+                        if (line.trim() && !line.startsWith('#')) {
+                            def (key, value) = line.split('=', 2)
+                            env."${key.trim()}" = value.trim()
                         }
                     }
                 }
@@ -43,8 +32,8 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'echo 🔍 Checking Docker access...'
-                    sh 'docker version || echo "❌ Docker is not accessible"'
+                    echo "🔧 Building the React app..."
+                    sh 'docker version || echo "❌ Docker is not accessible from Jenkins"'
                     sh 'chmod +x scripts/buildmyportfolio.sh'
                     sh './scripts/buildmyportfolio.sh'
                 }
@@ -53,32 +42,16 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                script {
-                    sh 'echo 🚀 Deploying to Kubernetes...'
-                    sh 'kubectl apply -f k8s/deployment.yml --validate=false'
-                }
+                echo "🚀 Deploying to Kubernetes"
+                sh 'kubectl apply -f k8s/deployment.yml --validate=false'
             }
         }
 
         stage('Ansible Post Deploy Config') {
             steps {
-                script {
-                    sh 'echo 🔧 Running Ansible post-deploy configuration...'
-                    sh 'ansible-playbook ansible/deploy.yml'
-                }
+                echo "🔧 Running Ansible playbook for post-deploy config"
+                sh 'ansible-playbook ansible/deploy.yml'
             }
-        }
-    }
-
-    post {
-        always {
-            echo '📦 Pipeline completed.'
-        }
-        success {
-            echo '✅ Deployment succeeded.'
-        }
-        failure {
-            echo '❌ Deployment failed. Please check logs.'
         }
     }
 }
