@@ -2,15 +2,22 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Install Node.js & npm (v18)
+# Install Node.js
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get update && \
-    apt-get install -y nodejs && \
-    npm install -g npm && \
-    ln -s /usr/bin/node /usr/local/bin/node && \
-    ln -s /usr/bin/npm /usr/local/bin/npm
+    apt-get install -y nodejs
 
-# Verify
-RUN node -v && npm -v
+# ✅ Install Docker CLI
+RUN apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+    https://download.docker.com/linux/debian $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null && \
+    apt-get update && apt-get install -y docker-ce-cli
 
 USER jenkins
+
