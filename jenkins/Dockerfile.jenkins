@@ -2,11 +2,15 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Add jenkins user to 'staff' group (GID 20 on macOS, same GID as mounted docker.sock)
-RUN usermod -aG staff jenkins
+# Create docker group with GID 20 (to match macOS docker.sock), and add jenkins to it
+RUN groupadd -g 20 docker || true && \
+    usermod -aG docker jenkins
 
+# Install Node.js and Docker
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get update && \
     apt-get install -y nodejs docker.io
 
 USER jenkins
+
+
