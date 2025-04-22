@@ -3,8 +3,10 @@ FROM jenkins/jenkins:lts
 USER root
 
 ARG DOCKER_GID=20
-RUN groupadd -g ${DOCKER_GID} docker || true && \
-    usermod -aG docker jenkins
+
+# Instead of creating a "docker" group, use the existing group (by GID 20)
+RUN groupmod -g ${DOCKER_GID} staff && \
+    usermod -aG staff jenkins
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get update && \
