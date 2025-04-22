@@ -2,27 +2,23 @@ pipeline {
     agent any
 
     stages {
-        stage('Debug Workspace') {
+        stage('Checkout') {
             steps {
-                script {
-                    echo "🔍 Listing workspace files..."
-                    sh 'ls -la'
-                    sh 'git status || echo "⚠️ Not a Git repo"'
-                    sh 'cat jenkinsfile || echo "⚠️ jenkinsfile not found"'
-                }
+                // Clean up and immediately checkout the repo
+                deleteDir()
+                checkout scm
             }
         }
 
-        stage('Load .env Variables') {
+        stage('Load Environment Variables') {
             steps {
                 script {
-                    echo "🔑 Loading environment variables from .env"
                     def envFile = readFile('.env')
                     def lines = envFile.split('\n')
                     for (line in lines) {
                         if (line.trim() && !line.startsWith('#')) {
-                            def (key, value) = line.split('=', 2)
-                            env."${key.trim()}" = value.trim()
+                            def (key, value) = line.split('=')
+                            env."${key}" = value
                         }
                     }
                 }
@@ -32,8 +28,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    echo "🔧 Building the React app..."
-                    sh 'docker version || echo "❌ Docker is not accessible from Jenkins"'
+                    sh 'docker version || echo "❌ Docker is not accessible"'
                     sh 'chmod +x scripts/buildmyportfolio.sh'
                     sh './scripts/buildmyportfolio.sh'
                 }
@@ -42,16 +37,15 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
-                echo "🚀 Deploying to Kubernetes"
                 sh 'kubectl apply -f k8s/deployment.yml --validate=false'
             }
         }
 
         stage('Ansible Post Deploy Config') {
             steps {
-                echo "🔧 Running Ansible playbook for post-deploy config"
                 sh 'ansible-playbook ansible/deploy.yml'
             }
         }
     }
 }
+
