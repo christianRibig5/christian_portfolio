@@ -9,11 +9,11 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'chmod +x scripts/buildmyportfolio.sh'
-                    sh '''
-                        source /etc/profile
+                   sh 'chmod +x scripts/buildmyportfolio.sh'
+                   sh '''
+                        . /etc/profile
                         bash ./scripts/buildmyportfolio.sh
-                    '''
+                      '''
                 }
             }
         }
@@ -33,4 +33,4 @@ pipeline {
 }
 
 
- 
+
