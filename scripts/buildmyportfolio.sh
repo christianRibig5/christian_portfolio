@@ -1,12 +1,7 @@
 #!/bin/bash
-set -e  # Exit on error
-
-# Extend PATH to include npm/node
-export PATH=$PATH:/usr/local/bin:/usr/bin
+set -e
 
 echo "🛠 Building React app..."
-
-# Install dependencies and build
 npm install
 npm run build
 

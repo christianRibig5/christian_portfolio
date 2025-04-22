@@ -11,7 +11,7 @@ pipeline {
                 script {
                     sh 'chmod +x scripts/buildmyportfolio.sh'
                     sh '''
-                        export PATH=$PATH:/usr/local/bin
+                        source /etc/profile
                         bash ./scripts/buildmyportfolio.sh
                     '''
                 }
@@ -33,3 +33,4 @@ pipeline {
 }
 
 
+ 
