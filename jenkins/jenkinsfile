@@ -9,11 +9,14 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                   sh 'chmod +x scripts/buildmyportfolio.sh'
-                   sh '''
+                  // Test Docker access before running the build
+                    sh 'echo 🔍 Checking Docker access...'
+                    sh 'docker version || echo ❌ Docker is not accessible from Jenkins'
+                    sh 'chmod +x scripts/buildmyportfolio.sh'
+                    sh '''
                         . /etc/profile
                         bash ./scripts/buildmyportfolio.sh
-                      '''
+                    '''
                 }
             }
         }
@@ -34,3 +37,17 @@ pipeline {
 
 
 
+stage('Build') {
+    steps {
+        script {
+            // Test Docker access before running the build
+            sh 'echo 🔍 Checking Docker access...'
+            sh 'docker version || echo ❌ Docker is not accessible from Jenkins'
+            sh 'chmod +x scripts/buildmyportfolio.sh'
+            sh '''
+                . /etc/profile
+                bash ./scripts/buildmyportfolio.sh
+            '''
+        }
+    }
+}
