@@ -1,25 +1,30 @@
 pipeline {
     agent any
 
-    environment {
-        DOTENV = readFile('.env').split('\n')
-    }
-
     stages {
         stage('Cleanup Workspace') {
             steps {
                 deleteDir()
             }
         }
+
         stage('Checkout') {
             steps {
                 checkout scm
             }
-         }
+        }
+
+        stage('Load Env') {
+            steps {
+                script {
+                    env.DOTENV = readFile('.env').split('\n').join(',')
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 script {
-                  // Test Docker access before running the build
                     sh 'echo 🔍 Checking Docker access...'
                     sh 'docker version || echo ❌ Docker is not accessible from Jenkins'
                     sh 'chmod +x scripts/buildmyportfolio.sh'
@@ -44,4 +49,3 @@ pipeline {
         }
     }
 }
-
