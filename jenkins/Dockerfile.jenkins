@@ -2,15 +2,13 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-ARG DOCKER_GID=20
-
-# Instead of creating a "docker" group, use the existing group (by GID 20)
-RUN groupmod -g ${DOCKER_GID} staff && \
-    usermod -aG staff jenkins
+# Add Jenkins user to existing group (GID 20) — usually 'staff' on macOS
+RUN usermod -aG staff jenkins
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get update && \
     apt-get install -y nodejs docker.io
 
 USER jenkins
+
 
