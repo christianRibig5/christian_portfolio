@@ -2,7 +2,7 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Add Jenkins user to existing group (GID 20) — usually 'staff' on macOS
+# Add jenkins user to 'staff' group (GID 20 on macOS, same GID as mounted docker.sock)
 RUN usermod -aG staff jenkins
 
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
@@ -10,5 +10,3 @@ RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs docker.io
 
 USER jenkins
-
-
