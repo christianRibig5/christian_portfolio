@@ -2,8 +2,8 @@
 set -e
 
 echo "🛠 Building React app..."
-npm install
-npm run build
+/usr/local/bin/npm install
+/usr/local/bin/npm run build
 
 # Load .env variables
 export $(grep -v '^#' .env | xargs)
