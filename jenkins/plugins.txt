@@ -1,0 +1,9 @@
+git
+workflow-aggregator
+docker-plugin
+ansible
+kubernetes
+pipeline-utility-steps
+credentials
+workflow-cps
+

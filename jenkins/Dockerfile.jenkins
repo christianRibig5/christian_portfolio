@@ -1,21 +1,36 @@
+# jenkins/Dockerfile
+
 FROM jenkins/jenkins:lts
 
 USER root
 
-# Create docker group with GID 20 (to match macOS docker.sock), and add jenkins to it
-RUN if ! getent group docker; then \
-    if getent group 20; then \
-    groupmod -n docker $(getent group 20 | cut -d: -f1); \
-    else \
-    groupadd -g 20 docker; \
-    fi; \
-    fi && \
-    usermod -aG docker jenkins
+# Install essential tools
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    unzip \
+    python3-pip \
+    ansible \
+    docker.io \
+    apt-transport-https \
+    ca-certificates \
+    gnupg \
+    lsb-release \
+    software-properties-common
 
-# Install Node.js and Docker
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get update && \
-    apt-get install -y nodejs docker.io
+# Install kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
+    && rm kubectl
+
+# Fix Docker permissions for Jenkins
+RUN usermod -aG docker jenkins
+
+# Copy plugins.txt into image
+COPY plugins.txt /usr/share/jenkins/ref/plugins.txt
+
+# Install Jenkins plugins at build time
+RUN jenkins-plugin-cli --plugin-file /usr/share/jenkins/ref/plugins.txt
 
 USER jenkins
 
