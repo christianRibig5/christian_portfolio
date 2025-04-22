@@ -17,7 +17,14 @@ pipeline {
         stage('Load Env') {
             steps {
                 script {
-                    env.DOTENV = readFile('.env').split('\n').join(',')
+                    def envFile = readFile('.env')
+                    def lines = envFile.split('\n')
+                    for (line in lines) {
+                        if (line.trim() && !line.startsWith('#')) {
+                            def (key, value) = line.split('=')
+                            env."${key}" = value
+                        }
+                    }
                 }
             }
         }
@@ -25,13 +32,9 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'echo 🔍 Checking Docker access...'
-                    sh 'docker version || echo ❌ Docker is not accessible from Jenkins'
+                    sh 'docker version || echo "❌ Docker is not accessible"'
                     sh 'chmod +x scripts/buildmyportfolio.sh'
-                    sh '''
-                        . /etc/profile
-                        bash ./scripts/buildmyportfolio.sh
-                    '''
+                    sh './scripts/buildmyportfolio.sh'
                 }
             }
         }
@@ -49,3 +52,4 @@ pipeline {
         }
     }
 }
+
