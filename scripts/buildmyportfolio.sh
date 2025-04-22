@@ -1,9 +1,16 @@
 #!/bin/bash
 set -e
 
+if ! command -v npm &> /dev/null; then
+  echo "❌ npm not found! Please make sure Node.js is installed inside Jenkins."
+  exit 1
+fi
+
+
 echo "🛠 Building React app..."
-/usr/local/bin/npm install
-/usr/local/bin/npm run build
+npm install
+npm run build
+
 
 # Load .env variables
 export $(grep -v '^#' .env | xargs)
