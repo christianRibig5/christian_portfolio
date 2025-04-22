@@ -1,10 +1,20 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'my-jenkins-devops' // Your custom Docker image
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
+
+    environment {
+        DOCKER_IMAGE_NAME = 'christian_portfolio_img'
+        DOCKER_CONTAINER_NAME = 'christian_portfolio_container'
+        REACT_APP_PORT = '3000'
+    }
 
     stages {
         stage('Checkout') {
             steps {
-                // Clean up and immediately checkout the repo
                 deleteDir()
                 checkout scm
             }
@@ -28,7 +38,6 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    sh 'docker version || echo "❌ Docker is not accessible"'
                     sh 'chmod +x scripts/buildmyportfolio.sh'
                     sh './scripts/buildmyportfolio.sh'
                 }
@@ -37,6 +46,7 @@ pipeline {
 
         stage('Deploy to Kubernetes') {
             steps {
+                sh 'kubectl version --client'
                 sh 'kubectl apply -f k8s/deployment.yml --validate=false'
             }
         }
