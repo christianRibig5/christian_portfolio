@@ -12,7 +12,7 @@ fi
 echo "🛠 Building React app..."
 
 # Install dependencies
-npm install --unsafe-perm=true
+npm install --save-dev vite
 # Build with vite
 npm run build
 
