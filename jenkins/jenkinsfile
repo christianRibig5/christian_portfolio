@@ -26,6 +26,12 @@ pipeline {
                 sh 'ls -la scripts || echo "❗ scripts folder NOT FOUND!"'
             }
         }
+        stage('Clean Workspace') {
+            steps {
+                echo "🧹 Force cleaning workspace..."
+                sh 'rm -rf node_modules || true'
+            }
+        }
         stage('Build and Deploy') {
             steps {
                 script {
