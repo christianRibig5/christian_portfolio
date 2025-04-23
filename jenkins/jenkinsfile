@@ -1,64 +1,134 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'my-jenkins-devops:latest'
+            args '-v $HOME/jenkins_shared:/var/jenkins_home/workspace' // or remove if you're not actually sharing from host
+        }
+    }
     environment {
         KUBECONFIG = '/root/.kube/config'
     }
-
     stages {
         stage('Checkout') {
             steps {
+                deleteDir()
                 checkout scm
             }
         }
 
         stage('Build and Deploy') {
-            agent {
-                docker {
-                    image 'my-jenkins-devops:latest'
-                    args '-v $HOME/jenkins_shared:/var/jenkins_home/workspace'
+            steps {
+                dir('portfolio-deployment') { // Ensure we run from the correct workspace path
+                    script {
+                        echo '✅ Loading environment variables...'
+                        def envFile = readFile('.env')
+                        envFile.split('\n').each {
+                            if (it && !it.startsWith('#')) {
+                                def (k, v) = it.split('=')
+                                env["${k}"] = v
+                            }
+                        }
+
+                        echo '🚀 Building portfolio app...'
+                        sh 'chmod +x scripts/buildmyportfolio.sh'
+                        sh './scripts/buildmyportfolio.sh'
+                    }
                 }
             }
+        }
+
+        stage('Deploy to Kubernetes') {
             steps {
-                script {
-                    echo '✅ Loading environment variables...'
-                    def envFile = readFile('.env')
-                    def lines = envFile.split('\n')
-                    for (line in lines) {
-                        if (line.trim() && !line.startsWith('#')) {
-                            def (key, value) = line.split('=')
-                            env."${key}" = value
-                        }
-                    }
+                sh 'kubectl config current-context'
+                sh 'kubectl get pods'
+                sh 'kubectl apply -f k8s/deployment.yml --validate=false'
+            }
+        }
 
-                    echo '🚀 Building portfolio app...'
-                    sh 'chmod +x scripts/buildmyportfolio.sh'
-                    sh './scripts/buildmyportfolio.sh'
-
-                    echo '☸️ Deploying to Kubernetes...'
-                    sh 'kubectl config current-context'
-                    sh 'kubectl get pods'
-                    sh 'kubectl apply -f k8s/deployment.yml --validate=false'
-
-                    echo '🔧 Running Ansible configuration...'
-                    sh 'ansible-playbook ansible/deploy.yml'
-                }
+        stage('Ansible Post Deploy Config') {
+            steps {
+                sh 'ansible-playbook ansible/deploy.yml'
             }
         }
     }
 
     post {
         always {
-        echo 'Cleaning up workspace...'
-        deleteDir()
-        sh "rm -rf node_modules || true"
+            echo 'Cleaning up workspace...'
+            deleteDir()
+            sh 'rm -rf node_modules || true'
         }
-    failure {
-        echo 'Build failed!'
+        failure {
+            echo 'Build failed!'
         }
-    success {
-        echo 'Build succeeded!'
+        success {
+            echo 'Build succeeded!'
         }
     }
-
 }
+
+
+// pipeline {
+//     agent any
+
+//     environment {
+//         KUBECONFIG = '/root/.kube/config'
+//     }
+
+//     stages {
+//         stage('Checkout') {
+//             steps {
+//                 checkout scm
+//             }
+//         }
+
+//         stage('Build and Deploy') {
+//             agent {
+//                 docker {
+//                     image 'my-jenkins-devops:latest'
+//                     args '-v $HOME/jenkins_shared:/var/jenkins_home/workspace'
+//                 }
+//             }
+//             steps {
+//                 script {
+//                     echo '✅ Loading environment variables...'
+//                     def envFile = readFile('.env')
+//                     def lines = envFile.split('\n')
+//                     for (line in lines) {
+//                         if (line.trim() && !line.startsWith('#')) {
+//                             def (key, value) = line.split('=')
+//                             env."${key}" = value
+//                         }
+//                     }
+
+//                     echo '🚀 Building portfolio app...'
+//                     sh 'chmod +x scripts/buildmyportfolio.sh'
+//                     sh './scripts/buildmyportfolio.sh'
+
+//                     echo '☸️ Deploying to Kubernetes...'
+//                     sh 'kubectl config current-context'
+//                     sh 'kubectl get pods'
+//                     sh 'kubectl apply -f k8s/deployment.yml --validate=false'
+
+//                     echo '🔧 Running Ansible configuration...'
+//                     sh 'ansible-playbook ansible/deploy.yml'
+//                 }
+//             }
+//         }
+//     }
+
+//     post {
+//         always {
+//         echo 'Cleaning up workspace...'
+//         deleteDir()
+//         sh "rm -rf node_modules || true"
+//         }
+//     failure {
+//         echo 'Build failed!'
+//         }
+//     success {
+//         echo 'Build succeeded!'
+//         }
+//     }
+
+// }
