@@ -19,12 +19,14 @@ RUN apt-get update && apt-get install -y \
 # Optional: Add Jenkins user to Docker group
 RUN usermod -aG docker jenkins
 
+# Install kubectl
+RUN curl -LO "https://dl.k8s.io/release/$(curl -sL https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
+    && install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl \
+    && rm kubectl
+
 # Switch back to Jenkins user
 USER jenkins
 
 # Start Jenkins
 CMD ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
-
-
-
 
