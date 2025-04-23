@@ -17,7 +17,7 @@ rm -rf node_modules package-lock.json
 # Install all dependencies (including devDependencies)
 npm install --legacy-peer-deps
 # Ensure vite is installed locally (needed for vite.config.mjs resolution)
-npm install --save-dev vite
+npm install --save-dev vite@latest
 
 if [ ! -f node_modules/vite/package.json ]; then
   echo "❌ Vite not installed locally! Build will fail."
