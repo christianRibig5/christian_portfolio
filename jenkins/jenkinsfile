@@ -3,12 +3,7 @@ pipeline {
          docker {
 
              image 'my-jenkins-devops:latest'
-             args """
-              -u root \
-              -v /Users/christianonyeukwu/.kube:/root/.kube:ro \
-              -v /Users/christianonyeukwu/.minikube:/root/.minikube:ro \
-              -v /var/run/docker.sock:/var/run/docker.sock
-             """
+             args '-v /my/custom/workspace:/var/jenkins_home/workspace'
         }
     }
     environment {
@@ -66,6 +61,7 @@ pipeline {
         always {
             echo 'Cleaning up workspace...'
             deleteDir() // jenkins build workpspace wipe
+            sh "rm -rf node_modules || true" // Prevents npm cache lock
         }
         failure {
             echo 'Build failed!'
