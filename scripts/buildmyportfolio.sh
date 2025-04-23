@@ -17,6 +17,9 @@ rm -rf node_modules package-lock.json
 # Install all dependencies (including devDependencies)
 npm install --legacy-peer-deps
 # Check vite installation
+echo "🧪 Vite location:"
+which vite
+echo "🔧 Vite version:"
 npx vite --version
 # Run the build
 npm run build
