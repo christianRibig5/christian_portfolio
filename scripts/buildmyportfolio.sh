@@ -3,49 +3,30 @@ set -e
 
 # Ensure npm is available
 if ! command -v npm &> /dev/null; then
-  echo "❌ npm not found! Please make sure Node.js is installed inside Jenkins."
+  echo "❌ npm not found! Please ensure Node.js is installed in the Jenkins environment."
   exit 1
 fi
 
-
-# Build React App
 echo "🛠 Building React app..."
 
-# Clean stale modules (optional but good)
+# Clean and reinstall dependencies
 rm -rf node_modules package-lock.json
-npm install --legacy-peer-deps
+npm install --legacy-peer-deps --save-dev vite@latest
 
-echo "🔍 Checking vite install..."
-ls -la node_modules/.bin | grep vite || echo "🚫 Vite is still not in .bin"
-
-npx vite --version || echo "🚫 npx vite failed"
-
-
-if [ ! -f node_modules/vite/package.json ]; then
-  echo "❌ Vite not installed locally! Build will fail."
-  exit 1
-fi
-
-
-# Check Vite in local node_modules
-echo "🧪 Checking for local vite install..."
-
+# Verify vite install
 if [ ! -f node_modules/.bin/vite ]; then
-  echo "❌ Vite not installed locally! Build will fail."
+  echo "❌ Vite is not installed locally in node_modules/.bin. Build will fail."
   exit 1
 fi
 
-echo "✅ Vite is installed locally at node_modules/.bin/vite"
+echo "✅ Vite found at node_modules/.bin/vite"
 echo "🔧 Vite version:"
 npx vite --version
 
-echo "📂 node_modules/.bin contains:"
-ls -la node_modules/.bin | grep vite
-
-# Run the build
-echo "🔧 Building with local vite..."
+# Build with vite
+echo "🔧 Running Vite build..."
 npx vite build || {
-  echo "🚫 Vite build failed. Please ensure vite is installed locally."; exit 1;
+  echo "🚫 Vite build failed. Check vite.config and dependencies."; exit 1;
 }
 
 
