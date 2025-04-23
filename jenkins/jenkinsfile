@@ -2,12 +2,14 @@ pipeline {
     agent {
         docker {
             image 'my-jenkins-devops:latest'
-            args '-v $HOME/jenkins_shared:/var/jenkins_home/workspace' // or remove if you're not actually sharing from host
+            args '-v $HOME/jenkins_shared:/var/jenkins_home/workspace'
         }
     }
+
     environment {
         KUBECONFIG = '/root/.kube/config'
     }
+
     stages {
         stage('Checkout') {
             steps {
@@ -18,20 +20,19 @@ pipeline {
 
         stage('Build and Deploy') {
             steps {
-                    script {
-                        echo '✅ Loading environment variables...'
-                        def envFile = readFile('.env')
-                        envFile.split('\n').each {
-                            if (it && !it.startsWith('#')) {
-                                def (k, v) = it.split('=')
-                                env["${k}"] = v
-                            }
-                        }
+                script {
+                    echo '✅ Loading environment variables...'
+                    def envLines = readFile('.env')
+                        .split('\n')
+                        .findAll { it && !it.startsWith('#') }
+                        .collect { it.trim() }
 
+                    withEnv(envLines) {
                         echo '🚀 Building portfolio app...'
                         sh 'chmod +x scripts/buildmyportfolio.sh'
                         sh './scripts/buildmyportfolio.sh'
                     }
+                }
             }
         }
 
@@ -66,67 +67,3 @@ pipeline {
 }
 
 
-// pipeline {
-//     agent any
-
-//     environment {
-//         KUBECONFIG = '/root/.kube/config'
-//     }
-
-//     stages {
-//         stage('Checkout') {
-//             steps {
-//                 checkout scm
-//             }
-//         }
-
-//         stage('Build and Deploy') {
-//             agent {
-//                 docker {
-//                     image 'my-jenkins-devops:latest'
-//                     args '-v $HOME/jenkins_shared:/var/jenkins_home/workspace'
-//                 }
-//             }
-//             steps {
-//                 script {
-//                     echo '✅ Loading environment variables...'
-//                     def envFile = readFile('.env')
-//                     def lines = envFile.split('\n')
-//                     for (line in lines) {
-//                         if (line.trim() && !line.startsWith('#')) {
-//                             def (key, value) = line.split('=')
-//                             env."${key}" = value
-//                         }
-//                     }
-
-//                     echo '🚀 Building portfolio app...'
-//                     sh 'chmod +x scripts/buildmyportfolio.sh'
-//                     sh './scripts/buildmyportfolio.sh'
-
-//                     echo '☸️ Deploying to Kubernetes...'
-//                     sh 'kubectl config current-context'
-//                     sh 'kubectl get pods'
-//                     sh 'kubectl apply -f k8s/deployment.yml --validate=false'
-
-//                     echo '🔧 Running Ansible configuration...'
-//                     sh 'ansible-playbook ansible/deploy.yml'
-//                 }
-//             }
-//         }
-//     }
-
-//     post {
-//         always {
-//         echo 'Cleaning up workspace...'
-//         deleteDir()
-//         sh "rm -rf node_modules || true"
-//         }
-//     failure {
-//         echo 'Build failed!'
-//         }
-//     success {
-//         echo 'Build succeeded!'
-//         }
-//     }
-
-// }
