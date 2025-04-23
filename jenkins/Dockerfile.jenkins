@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y \
     curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs && \
     groupadd docker || true && \
-    chmod 666 /var/run/docker.sock &&\
+    [ -S /var/run/docker.sock ] && chmod 666 /var/run/docker.sock || true && \
     apt-get clean
 
 # Optional: Add Jenkins user to Docker group
@@ -29,4 +29,5 @@ USER jenkins
 
 # Start Jenkins
 CMD ["/usr/bin/tini", "--", "/usr/local/bin/jenkins.sh"]
+
 
