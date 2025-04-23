@@ -65,7 +65,7 @@ pipeline {
      post {
         always {
             echo 'Cleaning up workspace...'
-            cleanWs()
+            deleteDir() // jenkins build workpspace wipe
         }
         failure {
             echo 'Build failed!'
