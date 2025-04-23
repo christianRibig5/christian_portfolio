@@ -1,34 +1,19 @@
 #!/bin/bash
 set -e
 
-# Ensure npm is available
-if ! command -v npm &> /dev/null; then
-  echo "❌ npm not found! Please ensure Node.js is installed in the Jenkins environment."
-  exit 1
-fi
+echo "🌍 Forcing development mode..."
+export NODE_ENV=development
 
 echo "🛠 Building React app..."
 
-# Clean and reinstall dependencies
 rm -rf node_modules package-lock.json
-npm install --legacy-peer-deps --save-dev vite@latest
 
-# Verify vite install
-if [ ! -f node_modules/.bin/vite ]; then
-  echo "❌ Vite is not installed locally in node_modules/.bin. Build will fail."
-  exit 1
-fi
+# Install all devDependencies
+npm install --include=dev --legacy-peer-deps
 
-echo "✅ Vite found at node_modules/.bin/vite"
-echo "🔧 Vite version:"
-npx vite --version
-
-# Build with vite
-echo "🔧 Running Vite build..."
-npx vite build || {
-  echo "🚫 Vite build failed. Check vite.config and dependencies."; exit 1;
-}
-
+# Build React app using vite (via npm)
+echo "🏗 Running build via npm"
+npm run build
 
 # Load environment variables from .env file
 if [ -f .env ]; then

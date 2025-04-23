@@ -9,7 +9,7 @@ pipeline {
 
     environment {
         KUBECONFIG = '/root/.kube/config'
-        NODE_ENV = 'production'
+        NODE_ENV = 'development'
     }
 
     stages {
