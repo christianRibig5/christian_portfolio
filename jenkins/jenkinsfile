@@ -52,11 +52,13 @@ pipeline {
         echo 'Cleaning up workspace...'
         deleteDir()
         sh "rm -rf node_modules || true"
-    }
+        }
     failure {
         echo 'Build failed!'
-    }
+        }
     success {
         echo 'Build succeeded!'
+        }
     }
+
 }
