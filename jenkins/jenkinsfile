@@ -18,7 +18,13 @@ pipeline {
                 checkout scm
             }
         }
-
+         stage('Debug Workspace') {
+            steps {
+                sh 'echo "🕵️ Checking if scripts directory exists:"'
+                sh 'ls -la'
+                sh 'ls -la scripts || echo "❗ scripts folder NOT FOUND!"'
+            }
+        }
         stage('Build and Deploy') {
             steps {
                 script {
