@@ -49,17 +49,14 @@ pipeline {
 
     post {
         always {
-            node {
-                echo '🧹 Cleaning up Jenkins workspace...'
-                deleteDir()
-                sh 'rm -rf node_modules || true'
-            }
-        }
-        failure {
-            echo '❌ Build failed!'
-        }
-        success {
-            echo '✅ Build succeeded!'
-        }
+        echo 'Cleaning up workspace...'
+        deleteDir()
+        sh "rm -rf node_modules || true"
+    }
+    failure {
+        echo 'Build failed!'
+    }
+    success {
+        echo 'Build succeeded!'
     }
 }
