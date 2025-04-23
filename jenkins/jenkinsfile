@@ -3,6 +3,8 @@ pipeline {
         docker {
             image 'my-jenkins-devops:latest'
             args '-v $HOME/jenkins_shared:/var/jenkins_home/workspace'
+            label 'docker' // optional but better for docker-based nodes
+            reuseNode true
         }
     }
 
