@@ -11,9 +11,14 @@ fi
 # Build React App
 echo "🛠 Building React app..."
 
-# Install dependencies
-npm install --save-dev vite
-# Build with vite
+# Clean stale modules (optional but good)
+rm -rf node_modules package-lock.json
+
+# Install all dependencies (including devDependencies)
+npm install --legacy-peer-deps
+# Check vite installation
+npx vite --version
+# Run the build
 npm run build
 
 # Load environment variables from .env file
