@@ -28,10 +28,11 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends ansible && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Node.js (LTS) and npm
+# Install Node.js (LTS) and vite globally
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs && \
-    npm install -g npm
+    npm install -g vite
+
 
 USER jenkins
 

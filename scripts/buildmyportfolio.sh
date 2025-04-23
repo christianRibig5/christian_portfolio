@@ -7,9 +7,13 @@ if ! command -v npm &> /dev/null; then
   exit 1
 fi
 
+
 # Build React App
 echo "🛠 Building React app..."
-npm install
+
+# Install dependencies
+npm install --unsafe-perm=true
+# Build with vite
 npm run build
 
 # Load environment variables from .env file

@@ -68,18 +68,18 @@ pipeline {
 
     post {
         always {
-            script {
-                echo '🧹 Cleaning up workspace...'
-                // Only do this in a valid node context, not in a container-only step
-                deleteDir()
-                sh 'rm -rf node_modules || true'
-            }
+            echo '🧹 Cleaning up workspace...'
+            sh 'chmod -R +w node_modules || true'
+            deleteDir()
         }
         failure {
-            echo '❌ Build failed!'
+        echo '❌ Build failed!'
         }
         success {
             echo '✅ Build succeeded!'
-        }
+        }   
     }
 }
+
+
+
