@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'my-jenkins-devops:latest'
-            args '-v $HOME/jenkins_shared:/var/jenkins_home/workspace'
+            args '--entrypoint /bin/bash' // safer entrypoint
         }
     }
 
@@ -22,16 +22,18 @@ pipeline {
             steps {
                 script {
                     echo '✅ Loading environment variables...'
-                    def envLines = readFile('.env')
-                        .split('\n')
-                        .findAll { it && !it.startsWith('#') }
-                        .collect { it.trim() }
-
-                    withEnv(envLines) {
-                        echo '🚀 Building portfolio app...'
-                        sh 'chmod +x scripts/buildmyportfolio.sh'
-                        sh './scripts/buildmyportfolio.sh'
+                    def envFile = readFile('.env')
+                    envFile.split('\n').each {
+                        if (it && !it.startsWith('#')) {
+                            def (k, v) = it.split('=')
+                            env["${k}"] = v
+                        }
                     }
+
+                    echo '🚀 Building portfolio app...'
+                    sh 'ls -l scripts/'
+                    sh 'chmod +x scripts/buildmyportfolio.sh'
+                    sh './scripts/buildmyportfolio.sh'
                 }
             }
         }
@@ -55,7 +57,6 @@ pipeline {
         always {
             echo 'Cleaning up workspace...'
             deleteDir()
-            sh 'rm -rf node_modules || true'
         }
         failure {
             echo 'Build failed!'
@@ -65,5 +66,3 @@ pipeline {
         }
     }
 }
-
-

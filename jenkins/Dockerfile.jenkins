@@ -2,21 +2,30 @@ FROM jenkins/jenkins:lts
 
 USER root
 
-# Install basic packages
+# Install base packages
 RUN apt-get update && \
-    apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release software-properties-common && \
+    apt-get install -y --no-install-recommends \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    gnupg \
+    lsb-release \
+    software-properties-common \
+    sudo \
+    bash \
+    git && \
     rm -rf /var/lib/apt/lists/*
 
+# Install kubectl (correct method with export)
 # Install kubectl the correct way
 RUN KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt) && \
     curl -L -o /usr/local/bin/kubectl "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     chmod +x /usr/local/bin/kubectl
 
 
-# Install ansible
+# Install Ansible
 RUN apt-get update && \
-    apt-get install -y ansible && \
+    apt-get install -y --no-install-recommends ansible && \
     rm -rf /var/lib/apt/lists/*
 
 USER jenkins
-
