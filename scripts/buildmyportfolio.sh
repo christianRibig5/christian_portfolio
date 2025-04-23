@@ -24,11 +24,22 @@ if [ ! -f node_modules/vite/package.json ]; then
   exit 1
 fi
 
-# Check vite installation
-echo "🧪 Vite location:"
-which vite
+
+# Check Vite in local node_modules
+echo "🧪 Checking for local vite install..."
+
+if [ ! -f node_modules/.bin/vite ]; then
+  echo "❌ Vite not installed locally! Build will fail."
+  exit 1
+fi
+
+echo "✅ Vite is installed locally at node_modules/.bin/vite"
 echo "🔧 Vite version:"
 npx vite --version
+
+echo "📂 node_modules/.bin contains:"
+ls -la node_modules/.bin | grep vite
+
 # Run the build
 npm run build
 
