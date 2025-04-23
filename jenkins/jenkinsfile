@@ -75,6 +75,7 @@ pipeline {
     post {
         always {
             echo '🧹 Cleaning up workspace...'
+            sh 'sudo chown -R jenkins:jenkins . || true'
             sh 'chmod -R +w node_modules || true'
             deleteDir()
         }

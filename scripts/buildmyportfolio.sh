@@ -13,11 +13,13 @@ echo "🛠 Building React app..."
 
 # Clean stale modules (optional but good)
 rm -rf node_modules package-lock.json
-
-# Install all dependencies (including devDependencies)
 npm install --legacy-peer-deps
-# Ensure vite is installed locally (needed for vite.config.mjs resolution)
-npm install --save-dev vite@latest
+
+echo "🔍 Checking vite install..."
+ls -la node_modules/.bin | grep vite || echo "🚫 Vite is still not in .bin"
+
+npx vite --version || echo "🚫 npx vite failed"
+
 
 if [ ! -f node_modules/vite/package.json ]; then
   echo "❌ Vite not installed locally! Build will fail."
@@ -41,7 +43,11 @@ echo "📂 node_modules/.bin contains:"
 ls -la node_modules/.bin | grep vite
 
 # Run the build
-npm run build
+echo "🔧 Building with local vite..."
+npx vite build || {
+  echo "🚫 Vite build failed. Please ensure vite is installed locally."; exit 1;
+}
+
 
 # Load environment variables from .env file
 if [ -f .env ]; then
