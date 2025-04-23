@@ -4,14 +4,15 @@ pipeline {
 
              image 'my-jenkins-devops:latest'
              args """
-                -u root \
-                -v /Users/christianonyeukwu/.kube:/home/jenkins/.kube:ro \
-                -v /var/run/docker.sock:/var/run/docker.sock
-            """ 
+              -u root \
+              -v /Users/christianonyeukwu/.kube:/root/.kube:ro \
+              -v /Users/christianonyeukwu/.minikube:/root/.minikube:ro \
+              -v /var/run/docker.sock:/var/run/docker.sock
+             """
         }
     }
     environment {
-        KUBECONFIG = '/home/jenkins/.kube/config'
+        KUBECONFIG = '/root/.kube/config'
     }
     stages {
         stage('Checkout') {
