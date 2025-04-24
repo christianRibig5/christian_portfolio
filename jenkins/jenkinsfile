@@ -1,6 +1,5 @@
 pipeline {
-    agent {
-        any
+    agent any
         // docker {
 
             
@@ -8,8 +7,7 @@ pipeline {
         //     args '-u root --entrypoint=""' // removes `cat` entrypoint default
         //     reuseNode true
         // }
-    }
-
+    
     environment {
         KUBECONFIG = '/root/.kube/config'
         NODE_ENV = 'development'
