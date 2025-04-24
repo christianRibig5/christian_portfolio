@@ -7,37 +7,38 @@ ENV NODE_ENV=development
 # Install Docker CLI
 RUN apt-get update && apt-get install -y docker.io
 
-# Add Node.js and npm
+
+# Install Docker inside Jenkins container
+# RUN apt-get update && \
+#     apt-get install -y docker.io sudo && \
+#     usermod -aG docker jenkins && \
+#     apt-get clean
+
+# # Setup permissions
+# RUN mkdir -p /var/jenkins_home && chown -R jenkins:jenkins /var/jenkins_home
+
+# # Allow Jenkins user to use docker
+# RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+
+# Install required system dependencies
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    sudo \
+    apt-transport-https \
+    ca-certificates \
+    gnupg \
+    software-properties-common \
+    lsb-release \
+    docker.io \
+    ansible && \
+    apt-get clean
+
+# Install Node.js and npm (LTS version)
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
     apt-get install -y nodejs && \
     npm install -g vite
 
-
-# Install Docker inside Jenkins container
-RUN apt-get update && \
-    apt-get install -y docker.io sudo && \
-    usermod -aG docker jenkins && \
-    apt-get clean
-
-# Setup permissions
-RUN mkdir -p /var/jenkins_home && chown -R jenkins:jenkins /var/jenkins_home
-
-# Allow Jenkins user to use docker
-RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
-
-# Install base packages
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release \
-    software-properties-common \
-    sudo \
-    bash \
-    git && \
-    rm -rf /var/lib/apt/lists/*
 
 
 # Install kubectl the correct way
@@ -46,15 +47,13 @@ RUN KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt) && \
     chmod +x /usr/local/bin/kubectl
 
 
-# Install Ansible
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends ansible && \
-    rm -rf /var/lib/apt/lists/*
+# # Install Ansible
+# RUN apt-get update && \
+#     apt-get install -y --no-install-recommends ansible && \
+#     rm -rf /var/lib/apt/lists/*
 
-# Install Node.js (LTS) and vite globally
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
-    apt-get install -y nodejs && \
-    npm install -g vite
+# Set permissions
+RUN usermod -aG docker jenkins && echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 
 USER jenkins
