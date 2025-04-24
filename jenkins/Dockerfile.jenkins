@@ -4,10 +4,17 @@ USER root
 
 ENV NODE_ENV=development
 
-
+# Install Docker inside Jenkins container
 RUN apt-get update && \
-    apt-get install -y docker.io && \
-    usermod -aG docker jenkins
+    apt-get install -y docker.io sudo && \
+    usermod -aG docker jenkins && \
+    apt-get clean
+
+# Setup permissions
+RUN mkdir -p /var/jenkins_home && chown -R jenkins:jenkins /var/jenkins_home
+
+# Allow Jenkins user to use docker
+RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 # Install base packages
 RUN apt-get update && \
@@ -45,3 +52,12 @@ USER jenkins
 
 # Ensure container has a command that keeps it alive
 CMD ["bash"]
+
+
+FROM jenkins/jenkins:lts
+
+USER root
+
+
+
+USER jenkins

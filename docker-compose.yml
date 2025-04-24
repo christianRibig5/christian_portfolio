@@ -1,0 +1,26 @@
+version: '3.8'
+services:
+  jenkins:
+    image: my-jenkins-devops
+    container_name: jenkins
+    user: "1000:1000" # ✅ Ensures Jenkins has write permissions inside the container
+    ports:
+      - "8080:8080"
+      - "50000:50000" # Optional: for agent communication
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./kubeconfig.yaml:/root/.kube/config
+    restart: always
+
+  portfolio:
+    image: christian_portfolio_img
+    container_name: christian_portfolio_container
+    ports:
+      - "3000:80"
+    restart: unless-stopped
+
+volumes:
+  jenkins_home:
+
+
