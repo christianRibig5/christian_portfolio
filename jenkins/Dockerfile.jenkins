@@ -7,6 +7,12 @@ ENV NODE_ENV=development
 # Install Docker CLI
 RUN apt-get update && apt-get install -y docker.io
 
+# Add Node.js and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+    apt-get install -y nodejs && \
+    npm install -g vite
+
+
 # Install Docker inside Jenkins container
 RUN apt-get update && \
     apt-get install -y docker.io sudo && \
