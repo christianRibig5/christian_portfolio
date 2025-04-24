@@ -4,6 +4,9 @@ USER root
 
 ENV NODE_ENV=development
 
+# Install Docker CLI
+RUN apt-get update && apt-get install -y docker.io
+
 # Install Docker inside Jenkins container
 RUN apt-get update && \
     apt-get install -y docker.io sudo && \
@@ -30,7 +33,7 @@ RUN apt-get update && \
     git && \
     rm -rf /var/lib/apt/lists/*
 
-# Install kubectl (correct method with export)
+
 # Install kubectl the correct way
 RUN KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt) && \
     curl -L -o /usr/local/bin/kubectl "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
