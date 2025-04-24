@@ -56,11 +56,3 @@ USER jenkins
 # Ensure container has a command that keeps it alive
 CMD ["bash"]
 
-
-FROM jenkins/jenkins:lts
-
-USER root
-
-
-
-USER jenkins
