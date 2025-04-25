@@ -4,6 +4,7 @@ pipeline {
      environment {
         KUBECONFIG = '/root/.kube/config'
         NODE_ENV = 'development'
+        DOCKER_IMAGE='christian_portfolio_img'
      }
     stages {
         stage('Checkout') {
