@@ -59,5 +59,6 @@ RUN usermod -aG docker jenkins && echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoe
 USER jenkins
 
 # Ensure container has a command that keeps it alive
-CMD ["bash"]
+CMD ["/usr/local/bin/jenkins.sh"]
+
 
