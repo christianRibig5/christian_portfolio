@@ -61,4 +61,3 @@ USER jenkins
 # Ensure container has a command that keeps it alive
 CMD ["/usr/local/bin/jenkins.sh"]
 
-

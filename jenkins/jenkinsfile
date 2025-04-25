@@ -1,16 +1,9 @@
 pipeline {
     agent any
-        // docker {
 
-            
-        //     image 'my-jenkins-devops:latest'
-        //     args '-u root --entrypoint=""' // removes `cat` entrypoint default
-        //     reuseNode true
-        // }
-    
     environment {
-        KUBECONFIG = '/root/.kube/config'
         NODE_ENV = 'development'
+        DOCKER_IMAGE = 'christian_portfolio_img'
     }
 
     stages {
@@ -20,7 +13,7 @@ pipeline {
                 checkout scm
             }
         }
-         stage('Debug Workspace') {
+        stage('Debug Workspace') {
             steps {
                 sh 'echo "🕵️ Checking if scripts directory exists:"'
                 sh 'ls -la'
@@ -33,44 +26,41 @@ pipeline {
                 sh 'rm -rf node_modules || true'
             }
         }
-        stage('Build and Deploy') {
+
+        stage('Build App') {
             steps {
-                script {
-                    echo '✅ Loading environment variables...'
-                    def envFile = readFile('.env')
-                    def lines = envFile.split('\n')
-                    for (line in lines) {
-                        if (line?.trim() && !line.startsWith('#')) {
-                            def parts = line.trim().split('=')
-                            if (parts.size() == 2) {
-                                def key = parts[0]
-                                def value = parts[1]
-                                echo "Loaded env: ${key}=${value}" // For debug only
-                                // Note: Cannot assign to env[key] unless approved!
-                            }
-                        }
-                    }
-                   
-                    echo '🚀 Building portfolio app...'
-                    sh 'chmod +x scripts/buildmyportfolio.sh'
-                    sh './scripts/buildmyportfolio.sh'
-                }
+                echo "🏗 Building React app..."
+                sh 'chmod +x scripts/buildmyportfolio.sh'
+                sh './scripts/buildmyportfolio.sh'
             }
         }
 
-        stage('Deploy to Kubernetes') {
+        stage('Build Docker Image') {
             steps {
-                sh 'kubectl config current-context'
-                sh 'kubectl get pods'
-                sh 'kubectl apply -f k8s/deployment.yml --validate=false'
+                echo "🐳 Building Docker image..."
+                sh 'docker build -t $DOCKER_IMAGE .'
             }
         }
 
-        stage('Ansible Post Deploy Config') {
+        stage('Verify Image') {
             steps {
-                sh 'ansible-playbook ansible/deploy.yml'
+                echo "🔍 Verifying image was built..."
+                sh 'docker images | grep $DOCKER_IMAGE'
             }
         }
+
+        // stage('Optional Push to Registry') {
+        //     when {
+        //         expression { return env.PUSH_TO_REGISTRY == 'true' }
+        //     }
+        //     steps {
+        //         withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+        //             sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
+        //             sh 'docker tag $DOCKER_IMAGE $DOCKER_USER/$DOCKER_IMAGE:latest'
+        //             sh 'docker push $DOCKER_USER/$DOCKER_IMAGE:latest'
+        //         }
+        //     }
+        // }
     }
 
     post {
@@ -80,14 +70,100 @@ pipeline {
             sh 'chmod -R +w node_modules || true'
             deleteDir()
         }
-        failure {
-        echo '❌ Build failed!'
-        }
         success {
-            echo '✅ Build succeeded!'
-        }   
+            echo '✅ Build pipeline completed successfully!'
+        }
+        failure {
+            echo '❌ Build pipeline failed.'
+        }
     }
 }
+
+
+// pipeline {
+//     agent any
+//     environment {
+//         KUBECONFIG = '/root/.kube/config'
+//         NODE_ENV = 'development'
+//     }
+
+//     stages {
+//         stage('Checkout') {
+//             steps {
+//                 deleteDir()
+//                 checkout scm
+//             }
+//         }
+//          stage('Debug Workspace') {
+//             steps {
+//                 sh 'echo "🕵️ Checking if scripts directory exists:"'
+//                 sh 'ls -la'
+//                 sh 'ls -la scripts || echo "❗ scripts folder NOT FOUND!"'
+//             }
+//         }
+//         stage('Clean Workspace') {
+//             steps {
+//                 echo "🧹 Force cleaning workspace..."
+//                 sh 'rm -rf node_modules || true'
+//             }
+//         }
+//         stage('Build and Deploy') {
+//             steps {
+//                 script {
+//                     echo '✅ Loading environment variables...'
+//                     def envFile = readFile('.env')
+//                     def lines = envFile.split('\n')
+//                     for (line in lines) {
+//                         if (line?.trim() && !line.startsWith('#')) {
+//                             def parts = line.trim().split('=')
+//                             if (parts.size() == 2) {
+//                                 def key = parts[0]
+//                                 def value = parts[1]
+//                                 echo "Loaded env: ${key}=${value}" // For debug only
+//                                 // Note: Cannot assign to env[key] unless approved!
+//                             }
+//                         }
+//                     }
+                   
+//                     echo '🚀 Building portfolio app...'
+//                     sh 'chmod +x scripts/buildmyportfolio.sh'
+//                     sh './scripts/buildmyportfolio.sh'
+//                 }
+//             }
+//         }
+
+//         stage('Deploy to Kubernetes') {
+//             steps {
+//                 sh 'kubectl config current-context'
+//                 sh 'kubectl get pods'
+//                 sh 'kubectl apply -f k8s/deployment.yml --validate=false'
+//             }
+//         }
+
+//         stage('Ansible Post Deploy Config') {
+//             steps {
+//                 sh 'ansible-playbook ansible/deploy.yml'
+//             }
+//         }
+//     }
+
+//     post {
+//         always {
+//             echo '🧹 Cleaning up workspace...'
+//             sh 'sudo chown -R jenkins:jenkins . || true'
+//             sh 'chmod -R +w node_modules || true'
+//             deleteDir()
+//         }
+//         failure {
+//         echo '❌ Build failed!'
+//         }
+//         success {
+//             echo '✅ Build succeeded!'
+//         }   
+//     }
+// }
+
+
 
 
 
