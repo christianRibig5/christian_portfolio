@@ -22,6 +22,14 @@ const projects = [
         title: "TinDog",
         description: "An intuitive platform for managing Pets especially dogs for pet lovers.",
         link: "https://christianribig5.github.io/tindog/"
+    },
+    {
+        id: 4,
+        image: "/images/pipeline1.png",
+        title: "CI/CD Workflow on AWS Amplify and EC2",
+        description: `Implemented a CI/CD pipeline for a React (Vite) portfolio 
+        application using Docker, Jenkins, Kubernetes, and Ansible that failed initailly`,
+        link: "/images/pipeline-log.pdf"
     }
 ];
 export default projects;
