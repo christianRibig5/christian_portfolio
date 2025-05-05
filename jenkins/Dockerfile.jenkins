@@ -41,10 +41,10 @@ RUN usermod -aG docker jenkins && echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoe
 RUN mkdir -p /root/.kube
 
 RUN rm -rf /root/.kube/config && mkdir -p /root/.kube
-COPY jenkins/kubeconfig.yaml /root/.kube/config
+COPY kubeconfig.yaml /root/.kube/config
 
 # Copy kubeconfig into correct location inside container
-COPY jenkins/kubeconfig.yaml /root/.kube/config
+COPY kubeconfig.yaml /root/.kube/config
 
 
 
