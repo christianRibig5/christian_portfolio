@@ -8,18 +8,6 @@ ENV NODE_ENV=development
 RUN apt-get update && apt-get install -y docker.io
 
 
-# Install Docker inside Jenkins container
-# RUN apt-get update && \
-#     apt-get install -y docker.io sudo && \
-#     usermod -aG docker jenkins && \
-#     apt-get clean
-
-# # Setup permissions
-# RUN mkdir -p /var/jenkins_home && chown -R jenkins:jenkins /var/jenkins_home
-
-# # Allow Jenkins user to use docker
-# RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
-
 # Install required system dependencies
 RUN apt-get update && apt-get install -y \
     curl \
@@ -46,14 +34,15 @@ RUN KUBECTL_VERSION=$(curl -L -s https://dl.k8s.io/release/stable.txt) && \
     curl -L -o /usr/local/bin/kubectl "https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl" && \
     chmod +x /usr/local/bin/kubectl
 
-
-# # Install Ansible
-# RUN apt-get update && \
-#     apt-get install -y --no-install-recommends ansible && \
-#     rm -rf /var/lib/apt/lists/*
-
 # Set permissions
 RUN usermod -aG docker jenkins && echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
+
+# Create the kube directory inside the image
+RUN mkdir -p /root/.kube
+
+# Copy kubeconfig into correct location inside container
+COPY jenkins/kubeconfig.yaml /root/.kube/config
+
 
 
 USER jenkins
