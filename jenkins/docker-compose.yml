@@ -11,7 +11,7 @@ services:
     volumes:
       - jenkins_home:/var/jenkins_home
       # - /Users/christianonyeukwu/.kube/config:/root/.kube/config:ro
-      # - /var/run/docker.sock:/var/run/docker.sock
+      - /var/run/docker.sock:/var/run/docker.sock
       # - ./kubeconfig.yaml:/root/.kube/config
     user: root
     restart: always
