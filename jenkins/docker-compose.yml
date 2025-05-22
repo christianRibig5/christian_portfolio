@@ -10,13 +10,15 @@ services:
       - "50000:50000"
     volumes:
       - jenkins_home:/var/jenkins_home
-      - /Users/christianonyeukwu/.kube/config:/root/.kube/config:ro
-      # - /var/run/docker.sock:/var/run/docker.sock
-      # - ./kubeconfig.yaml:/root/.kube/config
-    # privileged: true
-    user: root
-    restart: always
+      - /var/run/docker.sock:/var/run/docker.sock
+    privileged: true   # ✅ This gives it root-like access
+    #   - jenkins_home:/var/jenkins_home
+    #   - /Users/christianonyeukwu/.kube/config:/root/.kube/config:ro
+    #   # - /var/run/docker.sock:/var/run/docker.sock
+    #   # - ./kubeconfig.yaml:/root/.kube/config
+    # # privileged: true
+    # user: root
+    # restart: always
 
 volumes:
   jenkins_home:
-

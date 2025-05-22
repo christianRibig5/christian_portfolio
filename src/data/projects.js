@@ -28,7 +28,7 @@ const projects = [
         image: "/images/pipeline1.png",
         title: "CI/CD Workflow on AWS Amplify and EC2",
         description: `Implemented a CI/CD pipeline for a React (Vite) portfolio 
-        application using Docker, Jenkins, Kubernetes, and Ansible that failed initailly`,
+        application using Docker, Jenkins, Kubernetes, and Ansible.`,
         link: "/images/pipeline-log.pdf"
     }
 ];
