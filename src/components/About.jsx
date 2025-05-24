@@ -9,7 +9,7 @@ const About = () => {
                 <p className="text-justify">
                     I’m a backend engineer with hands-on experience in Java, Python, JavaScript, modern software development,
                     and DevOps practices using Docker and related infrastructure. While my core focus is on building scalable
-                    backend systems, I also contribute to frontend projects using Java and JavaScript frameworks.
+                    backend systems, I also contribute to frontend projects using Java and JavaScript frameworks.<br />
                     I hold a Master’s degree in Computer Science (Thesis Stream) from Bishop’s University, Quebec,
                     where my research focused on algebraic and logical validation models for real-time systems.<br />
                     My experience includes working as a software engineer at ECR Technologies and lecturing in the Department of
