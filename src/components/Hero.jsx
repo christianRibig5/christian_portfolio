@@ -8,7 +8,7 @@ const Hero = () => {
             <div className="col-lg-6">
                 <p>Hi, I'm </p>
                 <h1 className="big-heading">Christian Onyeukwu</h1>
-                <p>Full-stack Java Developer, creating sleek, modern, and functional web applications.</p>
+                <p>Full-stack Developer, creating sleek, modern, and functional web applications.</p>
                 {/* <a
                     href="/resume.pdf"  // Provide the path to your resume (make sure it's in the public folder)
                     download="Christian_Resume.pdf"  // This will trigger the download
