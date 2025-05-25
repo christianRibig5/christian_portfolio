@@ -12,7 +12,7 @@ const About = () => {
                     backend systems, I also contribute to frontend projects using Java and JavaScript frameworks.<br />
                     I hold a Master’s degree in Computer Science (Thesis Stream) from Bishop’s University, Quebec,
                     where my research focused on algebraic and logical validation models for real-time systems.<br />
-                    My experience includes working as a software engineer at ECR Technologies and lecturing in the Department of
+                    My experience includes working as a software engineer at ECR Technology Services and lecturing in the Department of
                     Computer Science. I'm passionate about emerging technologies, research, and turning complex concepts into
                     meaningful digital solutions.
                 </p>
