@@ -9,16 +9,16 @@ const Hero = () => {
                 <p>Hi, I'm </p>
                 <h1 className="big-heading">Christian Onyeukwu</h1>
                 <p>Full-stack Developer, creating sleek, modern, and functional web applications.</p>
-                {/* <a
-                    href="/resume.pdf"  // Provide the path to your resume (make sure it's in the public folder)
-                    download="Christian_Resume.pdf"  // This will trigger the download
+                <a
+                    href="/christian_onyeukwu_cv.pdf"  // Provide the path to your resume (make sure it's in the public folder)
+                    download="christian_Resume.pdf"  // This will trigger the download
                     className="btn btn-outline-light btn-lg download-button"
                 >
                     <FaFileDownload size={20} /> Grab My Resume
-                </a> */}
-                <a className="btn btn-outline-light btn-lg gt-button" href="#contact">
-                    GET IN TOUCH
                 </a>
+                {/* <a className="btn btn-outline-light btn-lg gt-button" href="#contact">
+                    GET IN TOUCH
+                </a> */}
                 <div className="social">
                     <a className="btn btn-outline" href="https://github.com/christianRibig5" target="_blank" role="button"><FaGithub /></a>
                     <a className="btn btn-outline" href="https://www.linkedin.com/in/christianonyeukwu/" target="_blank"><FaLinkedin role="button" /></a>
