@@ -12,9 +12,9 @@ const Hero = () => {
                 <a
                     href="/christian_onyeukwu_cv.pdf"  // Provide the path to your resume (make sure it's in the public folder)
                     download="christian_Resume.pdf"  // This will trigger the download
-                    className="btn btn-outline-light btn-lg download-button"
+                    className="btn btn-outline-light btn-lg download-button gt-button"
                 >
-                    <FaFileDownload size={20} /> Grab My Resume
+                    <FaFileDownload size={20} /> GRAB MY RESUME
                 </a>
                 {/* <a className="btn btn-outline-light btn-lg gt-button" href="#contact">
                     GET IN TOUCH
