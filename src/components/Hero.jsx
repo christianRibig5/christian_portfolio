@@ -10,8 +10,8 @@ const Hero = () => {
                 <h1 className="big-heading">Christian Onyeukwu</h1>
                 <p>Full-stack Developer, creating sleek, modern, and functional web applications.</p>
                 <a
-                    href="/christianonyeukwu_cv1.pdf"  // Provide the path to your resume (make sure it's in the public folder)
-                    download="christianonyeukwu_cv1.pdf"  // This will trigger the download
+                    href="/resume.pdf"  // Provide the path to your resume (make sure it's in the public folder)
+                    download="christian-resume.pdf"  // This will trigger the download
                     className="btn btn-outline-light btn-lg download-button gt-button"
                 >
                     <FaFileDownload size={20} /> GRAB MY RESUME
