@@ -6,12 +6,14 @@ const Hero = () => {
         /* Title */
         <div className="row">
             <div className="col-lg-6">
-                <p>Hi, I'm </p>
+                <p>Hello, I'm </p>
                 <h1 className="big-heading">Christian Onyeukwu</h1>
-                <p>Full-stack Developer, creating sleek, modern, and functional web applications.</p>
+                <p>Full-Stack & DevOps Engineer focused on building scalable user applications and
+                    automating cloud-native infrastructure. Passionate about clean code, continuous delivery,
+                    and high-impact solutions.</p>
                 <a
-                    href="/resume.pdf"  // Provide the path to your resume (make sure it's in the public folder)
-                    download="christian-resume.pdf"  // This will trigger the download
+                    href="/DevOps_engineer.pdf"  // Provide the path to your resume (make sure it's in the public folder)
+                    download="DevOps_engineer.pdf"  // This will trigger the download
                     className="btn btn-outline-light btn-lg download-button gt-button"
                 >
                     <FaFileDownload size={20} /> GRAB MY RESUME

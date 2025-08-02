@@ -7,14 +7,16 @@ const About = () => {
 
                 <h2 className="text-center">About Me</h2>
                 <p className="text-justify">
-                    I’m a backend engineer with hands-on experience in Java, Python, JavaScript, modern software development,
-                    and DevOps practices using Docker and related infrastructure. While my core focus is on building scalable
-                    backend systems, I also contribute to frontend projects using Java and JavaScript frameworks.<br />
-                    I hold a Master’s degree in Computer Science (Thesis Stream) from Bishop’s University, Quebec,
-                    where my research focused on algebraic and logical validation models for real-time systems.<br />
-                    My experience includes working as a software engineer at ECR Technology Services and lecturing in the Department of
-                    Computer Science. I'm passionate about emerging technologies, research, and turning complex concepts into
-                    meaningful digital solutions.
+                    I’m a backend-focused Full-Stack and DevOps Engineer with practical experience in Java,
+                    Python, JavaScript, and modern cloud-native development. My expertise spans building scalable backend
+                    systems, automating infrastructure with Docker, Kubernetes, and CI/CD pipelines, and contributing
+                    to frontend projects using Java and JavaScript frameworks. I hold a Master’s degree in Computer Science (Thesis Stream)
+                    from Bishop’s University, Quebec, where my research explored algebraic and logical validation models for
+                    real-time systems. My background includes roles as a Software and DevOps  Engineer at ECR Technology Services and a Lecturer
+                    in the Department of Computer Science. I'm passionate about solving complex problems, advancing software
+                    reliability, and delivering end-to-end digital solutions that are both efficient and impactful.
+
+
                 </p>
             </div>
         </section >
