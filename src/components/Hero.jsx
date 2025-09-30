@@ -8,15 +8,14 @@ const Hero = () => {
             <div className="col-lg-6">
                 <p>Hello, I'm </p>
                 <h1 className="big-heading">Christian Onyeukwu</h1>
-                <p>Full-Stack & DevOps Engineer focused on building scalable user applications and
-                    automating cloud-native infrastructure. Passionate about clean code, continuous delivery,
-                    and high-impact solutions.</p>
+                <p>DevOps Engineer & Cloud Specialist driving automation, cloud-native deployments, and scalable infrastructure.Skilled in Docker, Kubernetes, Jenkins, Ansible, Terraform, and AWS.Proven results: 80% fewer deployment errors, release cycles cut from 3 hours to 25 minutes, 98% uptime achieved in production environments.</p>
                 <a
-                    href="/DevOps_engineer.pdf"  // Provide the path to your resume (make sure it's in the public folder)
-                    download="DevOps_engineer.pdf"  // This will trigger the download
+                    href="https://github.com/christianRibig5"  // Provide the path to your resume (make sure it's in the public folder)
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="btn btn-outline-light btn-lg download-button gt-button"
                 >
-                    <FaFileDownload size={20} /> GRAB MY RESUME
+                    <FaGithub size={20} /> View GitHub
                 </a>
                 {/* <a className="btn btn-outline-light btn-lg gt-button" href="#contact">
                     GET IN TOUCH
