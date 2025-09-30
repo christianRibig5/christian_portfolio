@@ -6,18 +6,9 @@ const About = () => {
             <div className='container-fluid'>
 
                 <h2 className="text-center">About Me</h2>
-                <p className="text-justify">
-                    I’m a backend-focused Full-Stack and DevOps Engineer with practical experience in Java,
-                    Python, JavaScript, and modern cloud-native development. My expertise spans building scalable backend
-                    systems, automating infrastructure with Docker, Kubernetes, and CI/CD pipelines, and contributing
-                    to frontend projects using Java and JavaScript frameworks. I hold a Master’s degree in Computer Science (Thesis Stream)
-                    from Bishop’s University, Quebec, where my research explored algebraic and logical validation models for
-                    real-time systems. My background includes roles as a Software and DevOps  Engineer at ECR Technology Services and a Lecturer
-                    in the Department of Computer Science. I'm passionate about solving complex problems, advancing software
-                    reliability, and delivering end-to-end digital solutions that are both efficient and impactful.
-
-
+                <p className="text-justify">I'm a DevOps Engineer and Cloud Specialist with a strong academic and professional foundation in computer science. I hold a Master’s degree in Computer Science (Thesis Stream) from Bishop’s University, Canada, where my research focused on algebraic and logical verification models for real-time reactive systems. My academic journey also includes a Bachelor of Science in Computer Science, complemented by advanced DevOps training at Purdue University and Edureka. Professionally, I have progressed from backend-focused software engineering to driving automation, scalability, and reliability as a DevOps Engineer at ECR Technology Services. In this role, I designed CI/CD pipelines, automated infrastructure with Docker, Kubernetes, Ansible, and Terraform, and implemented monitoring systems with Prometheus and Grafana, achieving measurable improvements in release speed, uptime, and operational efficiency. Passionate about bridging research and industry, I am committed to delivering innovative, resilient, and high-impact solutions in cloud-native and distributed systems.
                 </p>
+
             </div>
         </section >
     );
