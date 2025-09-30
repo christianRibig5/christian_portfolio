@@ -29,7 +29,9 @@ const Hero = () => {
                 </div>
             </div>
             <div className="col-lg-6">
-                <img className="title-image hero-wave" src={`${import.meta.env.BASE_URL}images/chris-1.png`} alt="personal-photo"></img>
+                {/* <img className="title-image hero-wave" src={`${import.meta.env.BASE_URL}images/chris-1.png`} alt="personal-photo"></img> */}
+                <img className="title-image hero-wave" src={`${import.meta.env.BASE_URL}images/media-profile.png`} alt="personal-photo"></img>
+
             </div>
         </div>
 
