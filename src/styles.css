@@ -41,7 +41,12 @@ h6 {
 
 p {
   color: #F2F4F8;
-  text-align: justify;
+  text-align: left;
+  /* hyphens: auto;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto; */
+  overflow-wrap: break-word;
+  word-spacing: normal;
 }
 
 .colored-section {
@@ -78,7 +83,7 @@ p {
 }
 
 .navbar-brand img {
-  width: 50px;
+  width: 80px;
 }
 
 .nav-item {
@@ -270,7 +275,9 @@ footer a:hover {
 
   p {
     color: #F2F4F8;
-    text-align: justify;
+    text-align: left;
+    overflow-wrap: break-word;
+    word-spacing: normal;
   }
 
   .hero-wave {
